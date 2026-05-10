@@ -8,7 +8,7 @@ const {
   getCarPackageById,
   updateCarPackage,
   deleteCarPackage,
-} = require("../controllers/carPackageController");
+} = require("../controllers/carPackagecontroller");
 
 // CREATE
 router.post("/", createCarPackage);
