@@ -153,6 +153,31 @@ exports.getSingleBooking = async (req, res) => {
 };
 
 // ======================================================
+// GET ALL BOOKINGS
+// ======================================================
+
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate("packageId")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      total: bookings.length,
+      data: bookings,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// ======================================================
 // STEP 3 - CONFIRM BOOKING
 // ======================================================
 

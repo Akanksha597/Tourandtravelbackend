@@ -18,8 +18,11 @@ const app = express();
 // ================= CORS =================
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
@@ -47,26 +50,22 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const applicationRoutes = require("./routes/ApplicationRoutes");
 const carPackageRoutes = require("./routes/carPackageRoutes");
 const carBookingRoutes = require("./routes/carBookingRoutes");
-// ===== FAVORITE TOUR ROUTES =====
 const favoriteTourRoutes = require("./routes/favoriteTourRoutes");
 
 // ================= API ROUTES =================
 app.use("/api/auth", authRoutes);
+
 app.use("/api/v1/contact", contactRoutes);
+
 app.use("/api/v1/applications", applicationRoutes);
-// ===== FAVORITE TOUR API =====
+
 app.use("/api/v1/favorite-tour", favoriteTourRoutes);
+
 app.use("/api/v1/booking", bookingRoutes);
-app.use(
-  "/api/car-package",
-  carPackageRoutes
-);
 
-app.use(
-  "/api/car-booking",
-  carBookingRoutes
-);  
+app.use("/api/car-package", carPackageRoutes);
 
+app.use("/api/car-booking", carBookingRoutes);
 
 // ================= TEST ROUTE =================
 app.get("/", (req, res) => {
